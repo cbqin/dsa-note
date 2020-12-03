@@ -15,7 +15,7 @@ from typing import List
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
         def check(mi):
-            total, cnt = 0, 1  # cnt = 1，因为本来nums就在算作一个子数组
+            total, cnt = 0, 1  # cnt = 1，最后剩余的子数组
             for num in nums:
                 if total + num > mi:
                     total = num
