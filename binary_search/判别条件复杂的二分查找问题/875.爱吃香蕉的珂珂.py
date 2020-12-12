@@ -62,19 +62,21 @@
 
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
-        def check(k):
-            h = 0
+        def check(mid):
+            total = 0
             for pile in piles:
-                h += pile // k
-                h = h if pile % k == 0 else h + 1
-            return h <= H
+                total += (pile+mid-1)//mid
+            return total <= H
 
-        lo, hi = 1, max(piles)
-        while lo < hi:
-            mi = (lo + hi) >> 1
-            if check(mi):
-                hi = mi
+        left = 1
+        right = max(piles)
+        while left < right:
+            mid = left+(right-left)//2
+            if check(mid):
+                right = mid
             else:
-                lo = mi + 1
-        return lo
+                left = mid+1
+
+        return left
+
 # @lc code=end

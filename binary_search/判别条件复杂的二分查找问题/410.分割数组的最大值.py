@@ -46,22 +46,24 @@
 
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
-        def check(mi):
-            total, cnt = 0, 1  # cnt = 1，最后剩余的子数组
+        def check(mid):
+            total = 1
+            cnt = 0
             for num in nums:
-                if total + num > mi:
-                    total = num
-                    cnt += 1
+                if cnt+num <= mid:
+                    cnt += num
                 else:
-                    total += num
-            return cnt <= m
+                    cnt = num
+                    total += 1
+            return total <= m
 
-        lo, hi = max(nums), sum(nums)
-        while lo < hi:
-            mi = (lo + hi) >> 1
-            if check(mi):
-                hi = mi
+        left = max(nums)
+        right = sum(nums)
+        while left < right:
+            mid = left+(right-left)//2
+            if check(mid):
+                right = mid
             else:
-                lo = mi + 1
-        return lo
+                left = mid+1
+        return left
 # @lc code=end

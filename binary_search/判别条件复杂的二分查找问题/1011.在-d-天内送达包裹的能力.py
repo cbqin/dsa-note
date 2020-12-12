@@ -75,23 +75,23 @@
 
 class Solution:
     def shipWithinDays(self, weights: List[int], D: int) -> int:
-        def check(mi):
-            d = 1  # 剩余的重量算最后一天
-            total = 0
+        def check(mid):
+            days = 1  # rest weight
+            cnt_weight = 0
             for weight in weights:
-                if total + weight > mi:
-                    total = weight
-                    d += 1
-                else:
-                    total += weight
-            return d <= D
+                if cnt_weight+weight > mid:
+                    cnt_weight = 0
+                    days += 1
+                cnt_weight += weight
+            return days <= D
 
-        lo, hi = max(weights), sum(weights)
-        while lo < hi:
-            mi = (lo + hi) >> 1
-            if check(mi):
-                hi = mi
+        left = max(weights)
+        right = sum(weights)
+        while left < right:
+            mid = left+(right-left)//2
+            if check(mid):
+                right = mid
             else:
-                lo = mi + 1
-        return lo
+                left = mid+1
+        return left
 # @lc code=end
