@@ -28,8 +28,10 @@ class Solution:
         for k in range(left, right+1):
             if i == mid+1:
                 nums[k:right+1] = temp[j:right+1]
+                break
             elif j == right+1:
                 nums[k:right+1] = temp[i:mid+1]
+                break
             elif temp[i] <= temp[j]:
                 nums[k] = temp[i]
                 i += 1
