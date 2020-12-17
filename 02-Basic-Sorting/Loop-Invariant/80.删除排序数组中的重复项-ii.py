@@ -80,7 +80,7 @@ class Solution:
         j = 2
         for i in range(2, n):
             if nums[i] != nums[j-2]:
-                nums[i], nums[j] = nums[j], nums[i]
+                nums[j] = nums[i]
                 j += 1
         return j
 # @lc code=end
