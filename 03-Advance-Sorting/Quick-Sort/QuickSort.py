@@ -62,6 +62,7 @@ class Solution:
 
     def quickSort3(self, nums: List[int]) -> None:
         # two pointers
+        # 把与 pivot 相等的元素平均分配到两侧
         def partition(nums, left, right):
             random_index = random.randint(left, right)
             nums[left], nums[random_index] = nums[random_index], nums[left]
@@ -97,6 +98,7 @@ class Solution:
 
     def quickSort4(self, nums: List[int]) -> None:
         # 3-way partitioning
+        # 把与 pivot 相等的元素分配到中间
         def partition(nums, left, right):
             random_index = random.randint(left, right)
             nums[left], nums[random_index] = nums[random_index], nums[left]

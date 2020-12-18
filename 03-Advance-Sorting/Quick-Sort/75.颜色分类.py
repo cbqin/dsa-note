@@ -76,9 +76,6 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        """
-        为什么双指针不行？？？
-        """
         left = 0
         right = len(nums)-1
         for i, num in enumerate(nums):
