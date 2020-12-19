@@ -15,19 +15,19 @@ class BucketSort:
         step = 1000
         buckets = 100000//step
 
-        temp = [[0]*n for _ in range(buckets+1)]
-        next = [0]*(buckets+1)
+        temp = [[0]*n for _ in range(buckets)]
+        next = [0]*(buckets)
 
         for num in nums:
             bucket_index = num//step
             temp[bucket_index][next[bucket_index]] = num
             next[bucket_index] += 1
 
-        for i in range(buckets+1):
+        for i in range(buckets):
             self.insertionSort(temp[i], next[i])
 
         res = []
-        for i in range(buckets+1):
+        for i in range(buckets):
             cur_len = next[i]
             for j in range(cur_len):
                 res.append(temp[i][j])
