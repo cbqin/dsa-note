@@ -70,22 +70,22 @@ class Solution:
         n = len(nums)
         left = 0
         right = 0
-        max_len = 0
+        ones = 0
         res = 0
 
         while right < n:
             right_num = nums[right]
             if right_num == 1:
-                max_len += 1
+                ones += 1
 
             right += 1
 
-            while right-left > max_len+1:
+            while right-left > ones+1:
                 left_num = nums[left]
                 if left_num == 1:
-                    max_len -= 1
+                    ones -= 1
                 left += 1
 
-            res = max(res, max_len)
+            res = max(res, ones)
         return res if res < n else res-1
 # @lc code=end
