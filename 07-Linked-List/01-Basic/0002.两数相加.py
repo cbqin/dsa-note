@@ -38,39 +38,24 @@
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        head = l1
-        curr1 = l1
-        curr2 = l2
-        pre1 = None
+        dummy_node = ListNode(-1)
+        curr_node = dummy_node
         carry = 0
-        while curr1 or curr2:
-            if not curr1:
-                curr1 = ListNode(0)
-                pre1.next = curr1
-                val = curr2.val + carry
-            elif not curr2:
-                val = curr1.val + carry
-            else:
-                val = curr1.val + curr2.val + carry
-            if val >= 10:
-                val -= 10
-                carry = 1
-            else:
-                carry = 0
+        while l1 or l2:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
 
-            curr1.val = val
-            pre1 = curr1
-
-            if curr1:
-                curr1 = curr1.next
-            if curr2:
-                curr2 = curr2.next
+            curr_node.next = ListNode(carry % 10)
+            carry //= 10
+            curr_node = curr_node.next
 
         if carry:
-            curr1 = ListNode(0)
-            pre1.next = curr1
-            curr1.val = carry
+            curr_node.next = ListNode(1)
 
-        return head
+        return dummy_node.next
 
 # @lc code=end
