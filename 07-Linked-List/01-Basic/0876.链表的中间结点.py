@@ -58,18 +58,10 @@
 
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
-        count = 0
-        curr = head
-        while curr:
-            count += 1
-            curr = curr.next
         slow = head
         fast = head
-        while fast.next and fast.next.next:
+        while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
-        if count % 2:
-            return slow
-        else:
-            return slow.next
+        return slow
 # @lc code=end
