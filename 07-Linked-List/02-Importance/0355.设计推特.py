@@ -106,6 +106,8 @@ class Twitter:
                     else:
                         combine.append(posts_ee[j])
                         j += 1
+                    if len(combine) == self.recent_max:
+                        break
                 combine.extend(posts[i:])
                 combine.extend(posts_ee[j:])
                 posts = combine[:10]
