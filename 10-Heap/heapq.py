@@ -12,3 +12,29 @@ heapify(x)           # transforms list into a heap, in-place, in linear time
 item = heapreplace(heap, item) # pops and returns smallest item, and adds
                                # new item; the heap size is unchanged
 """
+
+
+def heapify(x):
+    n = len(x)
+    for i in reversed(range(n//2)):
+        _siftup(x, i)
+
+
+def _siftup(heap, pos):
+    pass
+
+
+def _siftdown(heap, startpos, pos):
+    # 其实是 siftup ，是因为伴随着索引的减少，所以叫 siftdown。
+    newitem = heap[pos]
+
+    while pos < startpos:
+        parentpos = (pos-1) >> 1
+        parent = heap[parentpos]
+        if newitem < parent:
+            heap[pos] = parent
+            pos = parentpos
+            continue
+        break
+
+    heap[pos] = newitem
