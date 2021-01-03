@@ -29,6 +29,13 @@ def heappop(heap):
     return lastelt
 
 
+def heappushpop(heap, item):
+    if heap and heap[0] < item:
+        item, heap[0] = heap[0], item
+        _siftup(heap, 0)
+    return item
+
+
 def heapify(x):
     n = len(x)
     for i in reversed(range(n//2)):
