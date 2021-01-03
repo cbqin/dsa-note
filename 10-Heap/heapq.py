@@ -21,11 +21,33 @@ def heapify(x):
 
 
 def _siftup(heap, pos):
-    pass
+    # 其实是 siftdown ，是因为伴随着索引的增大，所以叫 siftdup。
+    endpos = len(heap)
+    startpos = pos
+    newitem = heap[pos]
+
+    # Bubble up the smaller child until hitting a leaf.
+    # 使最小的子节点上浮，直到父节点到达叶子节点
+    childpos = 2*pos+1  # leftmost child position
+    while childpos < endpos:
+        # Set childpos to index of smaller child.
+        rightpos = childpos+1
+        if rightpos < endpos and not heap[childpos] < heap[rightpos]:
+            childpos = rightpos
+
+        # Move the smaller child up
+        heap[pos] = heap[childpos]
+        pos = childpos
+        childpos = 2*pos+1
+
+    # The leaf at pos is empty now.  Put newitem there, and bubble it up
+    # to its final resting place (by sifting its parents down).
+    heap[pos] = newitem
+    _siftdown(heap, startpos, pos)
 
 
 def _siftdown(heap, startpos, pos):
-    # 其实是 siftup ，是因为伴随着索引的减少，所以叫 siftdown。
+    # 其实是 siftup ，是因为伴随着索引的减小，所以叫 siftdown。
     newitem = heap[pos]
 
     while pos < startpos:
