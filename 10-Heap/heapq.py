@@ -89,3 +89,11 @@ def _siftdown(heap, startpos, pos):
         break
 
     heap[pos] = newitem
+
+
+def _siftup_max(heap, pos):
+    pass
+
+
+def _siftdown_max(heap, startpos, pos):
+    pass
