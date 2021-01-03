@@ -14,6 +14,11 @@ item = heapreplace(heap, item) # pops and returns smallest item, and adds
 """
 
 
+def heappush(heap, item):
+    heap.append(item)
+    _siftdown(heap, 0, len(heap)-1)
+
+
 def heapify(x):
     n = len(x)
     for i in reversed(range(n//2)):
