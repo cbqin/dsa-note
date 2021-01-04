@@ -47,7 +47,7 @@
 
 # @lc code=start
 
-from heapq import heappop, heappush, heapreplace
+from heapq import heappop, heappush, heapreplace, heappushpop
 
 
 class MedianFinder:
@@ -60,18 +60,22 @@ class MedianFinder:
         self.maxh = []
 
     def addNum(self, num: int) -> None:
+        # if len(self.maxh) == len(self.minh):
+        #     if len(self.minh) == 0 or num >= -self.maxh[0]:
+        #         heappush(self.minh, num)
+        #     else:
+        #         pop = heapreplace(self.maxh, -num)
+        #         heappush(self.minh, -pop)
+        # else:
+        #     if num > self.minh[0]:
+        #         pop = heapreplace(self.minh, num)
+        #         heappush(self.maxh, -pop)
+        #     else:
+        #         heappush(self.maxh, -num)
         if len(self.maxh) == len(self.minh):
-            if len(self.minh) == 0 or num >= -self.maxh[0]:
-                heappush(self.minh, num)
-            else:
-                pop = heapreplace(self.maxh, -num)
-                heappush(self.minh, -pop)
+            heappush(self.minh, -heappushpop(self.maxh, -num))
         else:
-            if num > self.minh[0]:
-                pop = heapreplace(self.minh, num)
-                heappush(self.maxh, -pop)
-            else:
-                heappush(self.maxh, -num)
+            heappush(self.maxh, -heappushpop(self.minh, num))
 
     def findMedian(self) -> float:
         if len(self.maxh) == len(self.minh):
