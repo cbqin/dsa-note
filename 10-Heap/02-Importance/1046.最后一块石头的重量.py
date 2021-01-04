@@ -57,9 +57,6 @@ class Solution:
         h = [-stone for stone in stones]
         heapify(h)
 
-        if len(h) == 1:
-            return -h[0]
-
         while h:
             x = heappop(h)
             if not h:
