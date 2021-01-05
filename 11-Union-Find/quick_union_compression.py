@@ -19,7 +19,7 @@ class UnionFind(object):
 
     # 路径压缩：完全压缩
     def find(self, x: int) -> int:
-        while x != self.parents[x]:
+        if x != self.parents[x]:
             self.parents[x] = self.find(self.parents[x])
         return self.parents[x]
 
