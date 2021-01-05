@@ -5,6 +5,7 @@ class UnionFind(object):
         self.N = N
         self.count = N
         self.parents = [0]*N
+        self.rank = [1]*N
 
         for i in range(N):
             self.parents[i] = i
@@ -24,7 +25,13 @@ class UnionFind(object):
         if rootx == rooty:
             return
 
-        self.parents[rootx] = rooty
+        if self.rank[rootx] == self.rank[rooty]:
+            self.parents[rootx] = rooty
+            self.rank[rooty] += 1
+        elif self.rank[rootx] < self.rank[rooty]:
+            self.parents[rootx] = rooty
+        else:
+            self.parents[rooty] = rootx
 
         self.count -= 1
 
