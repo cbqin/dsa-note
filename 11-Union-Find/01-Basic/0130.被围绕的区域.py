@@ -41,6 +41,7 @@
 #
 
 # @lc code=start
+from typing import List
 
 
 class Solution:
