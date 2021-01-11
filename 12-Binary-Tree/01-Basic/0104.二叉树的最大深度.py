@@ -45,14 +45,32 @@ class TreeNode:
 
 
 class Solution:
+    # def maxDepth(self, root: TreeNode) -> int:
+    #     def dfs(root: TreeNode) -> int:
+    #         if not root:
+    #             return 0
+
+    #         left = dfs(root.left)
+    #         right = dfs(root.right)
+    #         return max(left, right)+1
+
+    #     return dfs(root)
+
     def maxDepth(self, root: TreeNode) -> int:
-        def dfs(root: TreeNode) -> int:
+        def bfs(root: TreeNode) -> int:
             if not root:
                 return 0
 
-            left = dfs(root.left)
-            right = dfs(root.right)
-            return max(left, right)+1
+            queue = deque([(root, 1)])
+            while queue:
+                node, depth = queue.popleft()
+                if node.left:
+                    queue.append((node.left, depth+1))
+                if node.right:
+                    queue.append((node.right, depth+1))
+                if not queue:
+                    return depth
 
-        return dfs(root)
+        return bfs(root)
+
 # @lc code=end
