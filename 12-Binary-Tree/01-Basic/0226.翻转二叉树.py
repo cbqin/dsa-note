@@ -41,6 +41,9 @@
 #
 
 # @lc code=start
+
+from collections import deque
+
 # Definition for a binary tree node.
 
 
@@ -52,14 +55,26 @@ class TreeNode:
 
 
 class Solution:
+    # def invertTree(self, root: TreeNode) -> TreeNode:
+    #     if not root:
+    #         return root
+    #     left = self.invertTree(root.left)
+    #     right = self.invertTree(root.right)
+    #     root.left = right
+    #     root.right = left
+    #     return root
+
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
-            return root
-        left = self.invertTree(root.left)
-        right = self.invertTree(root.right)
-        root.left = right
-        root.right = left
+            return None
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            node.left, node.right = node.right, node.left
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
         return root
-
 
 # @lc code=end
