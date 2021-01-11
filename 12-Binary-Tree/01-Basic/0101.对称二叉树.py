@@ -46,6 +46,9 @@
 #
 
 # @lc code=start
+
+from collections import deque
+
 # Definition for a binary tree node.
 
 
@@ -73,7 +76,26 @@ class Solution:
     #     return dfs(root.left, root.right)
 
     def isSymmetric(self, root: TreeNode) -> bool:
-        pass
+        def bfs(root: TreeNode) -> bool:
+            if not root:
+                return True
+            queue = deque([root.left, root.right])
+            while queue:
+                node1 = queue.popleft()
+                node2 = queue.popleft()
+                if not node1 and not node2:
+                    continue
+                if not node1 or not node2 or node1.val != node2.val:
+                    return False
+
+                queue.append(node1.left)
+                queue.append(node2.right)
+                queue.append(node1.right)
+                queue.append(node2.left)
+
+            return True
+
+        return bfs(root)
 
 
 # @lc code=end
