@@ -56,21 +56,49 @@ class Solution:
     #         return dfs(root.left)+dfs(root.right)+1
     #     return dfs(root)
 
+    # def countNodes(self, root: TreeNode) -> int:
+    #     def bfs(root: TreeNode) -> int:
+    #         if not root:
+    #             return 0
+    #         queue = deque([root])
+    #         count = 0
+    #         while queue:
+    #             node = queue.popleft()
+    #             count += 1
+    #             if node.left:
+    #                 queue.append(node.left)
+    #             if node.right:
+    #                 queue.append(node.right)
+    #         return count
+
+    #     return bfs(root)
+
     def countNodes(self, root: TreeNode) -> int:
-        def bfs(root: TreeNode) -> int:
-            if not root:
-                return 0
-            queue = deque([root])
-            count = 0
-            while queue:
-                node = queue.popleft()
-                count += 1
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            return count
+        def check(mid, root, h):
+            bits = 1 << (h-1)
+            node = root
+            while node and bits > 0:
+                if bits & mid:
+                    node = node.right
+                else:
+                    node = node.left
+                bits = bits >> 1
+            return node is not None
 
-        return bfs(root)
-
+        if not root:
+            return 0
+        h = 0
+        node = root
+        while node.left:
+            h += 1
+            node = node.left
+        left = 1 << h
+        right = (1 << (h+1))-1
+        while left < right:
+            mid = left+(right-left+1)//2
+            if check(mid, root, h):
+                left = mid
+            else:
+                right = mid-1
+        return left
 # @lc code=end
