@@ -67,15 +67,30 @@ class TreeNode:
 
 
 class Solution:
+    # def isBalanced(self, root: TreeNode) -> bool:
+        # def dfs(root: TreeNode) -> int:
+        #     if not root:
+        #         return 0
+        #     left = dfs(root.left)
+        #     right = dfs(root.right)
+        #     return max(left, right)+1
+
+        # if not root:
+        #     return True
+        # return abs(dfs(root.left)-dfs(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+
     def isBalanced(self, root: TreeNode) -> bool:
         def dfs(root: TreeNode) -> int:
             if not root:
                 return 0
             left = dfs(root.left)
+            if left == -1:
+                return -1
             right = dfs(root.right)
-            return max(left, right)+1
+            if right == -1:
+                return -1
+            return max(left, right)+1 if abs(left-right) < 2 else -1
 
-        if not root:
-            return True
-        return abs(dfs(root.left)-dfs(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+        return dfs(root) != -1
+
 # @lc code=end
