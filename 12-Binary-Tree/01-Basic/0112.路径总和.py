@@ -63,7 +63,24 @@ class Solution:
 
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         def bfs(root: TreeNode, sum: int) -> bool:
-            pass
-        pass
+            if not root:
+                return False
+            q_node = deque([root])
+            q_sum = deque([root.val])
+            while q_node:
+                node = q_node.popleft()
+                value = q_sum.popleft()
+                if not node.left and not node.right:
+                    if value == sum:
+                        return True
+                    continue
+                if node.left:
+                    q_node.append(node.left)
+                    q_sum.append(value+node.left.val)
+                if node.right:
+                    q_node.append(node.right)
+                    q_sum.append(value+node.right.val)
+            return False
+        return bfs(root, sum)
 
 # @lc code=end
