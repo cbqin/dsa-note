@@ -52,7 +52,8 @@ class Solution:
                 return None
             root_value = preorder[preleft]
             root = TreeNode(root_value)
-            index = inorder.index(root_value)
+            # index = inorder.index(root_value)
+            index = indexs[root_value]
             root.left = build(preorder, preleft+1, index -
                               inleft+preleft, inorder, inleft, index-1)
             root.right = build(preorder, index-inleft+preleft+1,
@@ -60,6 +61,9 @@ class Solution:
             return root
 
         length = len(preorder)
+        indexs = {}
+        for i, num in enumerate(inorder):
+            indexs[num] = i
         return build(preorder, 0, length-1, inorder, 0, length-1)
 
 # @lc code=end
