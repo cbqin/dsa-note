@@ -53,6 +53,16 @@ class Solution:
     #     return res
 
     def postorder(self, root: 'Node') -> List[int]:
-        pass
+        if not root:
+            return []
+        stack = [root]
+        res = []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            for child in node.children:
+                if child:
+                    stack.append(child)
+        return res[::-1]
 
 # @lc code=end
