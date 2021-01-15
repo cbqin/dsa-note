@@ -79,13 +79,21 @@ from heapq import heapify, heappop
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
-        pass
+        self.stack = []
+        while root:
+            self.stack.append(root)
+            root = root.left
 
     def next(self) -> int:
-        pass
+        node = self.stack.pop()
+        right = node.right
+        while right:
+            self.stack.append(right)
+            right = right.left
+        return node.val
 
     def hasNext(self) -> bool:
-        pass
+        return len(self.stack) > 0
 
 
 # Your BSTIterator object will be instantiated and called as such:
