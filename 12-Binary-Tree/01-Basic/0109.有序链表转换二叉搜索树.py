@@ -47,18 +47,42 @@
 
 
 class Solution:
+    # def sortedListToBST(self, head: ListNode) -> TreeNode:
+    #     def convert(nums, left, right):
+    #         if left > right:
+    #             return None
+    #         mid = left+(right-left)//2
+    #         root = TreeNode(nums[mid])
+    #         root.left = convert(nums, left, mid-1)
+    #         root.right = convert(nums, mid+1, right)
+    #         return root
+    #     nums = []
+    #     while head:
+    #         nums.append(head.val)
+    #         head = head.next
+    #     return convert(nums, 0, len(nums)-1)
+
     def sortedListToBST(self, head: ListNode) -> TreeNode:
-        def convert(nums, left, right):
+        def get_length(head):
+            length = 0
+            while head:
+                length += 1
+                head = head.next
+            return length
+
+        def build(left, right):
             if left > right:
                 return None
-            mid = left+(right-left+1)//2
-            root = TreeNode(nums[mid])
-            root.left = convert(nums, left, mid-1)
-            root.right = convert(nums, mid+1, right)
-            return root
-        nums = []
-        while head:
-            nums.append(head.val)
+            mid = left+(right-left)//2
+            root = TreeNode()
+            root.left = build(left, mid-1)
+            nonlocal head
+            root.val = head.val
             head = head.next
-        return convert(nums, 0, len(nums)-1)
+            root.right = build(mid+1, right)
+            return root
+
+        length = get_length(head)
+        return build(0, length-1)
+
 # @lc code=end
