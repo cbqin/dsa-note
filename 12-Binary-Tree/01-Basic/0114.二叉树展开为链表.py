@@ -72,6 +72,20 @@ class Solution:
     #     return root
 
     def flatten(self, root: TreeNode) -> None:
-        pass
+        if not root:
+            return
+        curr = root
+        prev = None
+        while curr:
+            if curr.left:
+                prev = curr.left
+                while prev.right:
+                    prev = prev.right
+                prev.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            else:
+                curr = curr.right
+        return root
 
 # @lc code=end
