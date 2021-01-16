@@ -57,13 +57,32 @@
 
 
 class Solution:
+    # def isValidBST(self, root: TreeNode) -> bool:
+    #     def dfs(root, lower, upper):
+    #         if not root:
+    #             return True
+    #         if lower < root.val < upper:
+    #             return dfs(root.left, lower, root.val) and dfs(root.right, root.val, upper)
+    #         else:
+    #             return False
+    #     return dfs(root, float("-inf"), float("inf"))
+
     def isValidBST(self, root: TreeNode) -> bool:
-        def dfs(root, lower, upper):
-            if not root:
-                return True
-            if lower < root.val < upper:
-                return dfs(root.left, lower, root.val) and dfs(root.right, root.val, upper)
-            else:
+        if not root:
+            return True
+        stack = []
+        prev = float("-inf")
+
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            if root.val <= prev:
                 return False
-        return dfs(root, float("-inf"), float("inf"))
+            prev = root.val
+            root = root.right
+        return True
+
 # @lc code=end
