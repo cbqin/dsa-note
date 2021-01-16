@@ -47,21 +47,41 @@
 #         self.left = None
 #         self.right = None
 
+from collections import deque
+
 
 class Solution:
+    # def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+    #     def dfs(root, path, sum):
+    #         if not root:
+    #             return
+    #         path.append(root.val)
+    #         if not root.left and not root.right:
+    #             if root.val == sum:
+    #                 ans.append(path[:])
+    #         dfs(root.left, path, sum-root.val)
+    #         dfs(root.right, path, sum-root.val)
+    #         path.pop()
+    #     ans = []
+    #     path = []
+    #     dfs(root, path, sum)
+    #     return ans
+
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
-        def dfs(root, path, sum):
+        def bfs(root, sum):
             if not root:
-                return
-            path.append(root.val)
-            if not root.left and not root.right:
-                if root.val == sum:
-                    ans.append(path[:])
-            dfs(root.left, path, sum-root.val)
-            dfs(root.right, path, sum-root.val)
-            path.pop()
-        ans = []
-        path = []
-        dfs(root, path, sum)
-        return ans
+                return []
+            ans = []
+            queue = deque([(root, [], 0)])
+            while queue:
+                node, path, val = queue.popleft()
+                if not node.left and not node.right:
+                    if node.val+val == sum:
+                        ans.append(path+[node.val])
+                if node.left:
+                    queue.append((node.left, path+[node.val], node.val+val))
+                if node.right:
+                    queue.append((node.right, path+[node.val], node.val+val))
+            return ans
+        return bfs(root, sum)
 # @lc code=end
