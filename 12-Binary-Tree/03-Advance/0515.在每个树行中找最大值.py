@@ -43,25 +43,40 @@ from collections import deque
 
 
 class Solution:
+    # def largestValues(self, root: TreeNode) -> List[int]:
+    #     def bfs(root):
+    #         if not root:
+    #             return
+    #         queue = deque([root])
+    #         res = []
+    #         while queue:
+    #             size = len(queue)
+    #             maxval = float("-inf")
+    #             for _ in range(size):
+    #                 node = queue.popleft()
+    #                 if node.val > maxval:
+    #                     maxval = node.val
+    #                 if node.left:
+    #                     queue.append(node.left)
+    #                 if node.right:
+    #                     queue.append(node.right)
+    #             res.append(maxval)
+    #         return res
+    #     return bfs(root)
+
     def largestValues(self, root: TreeNode) -> List[int]:
-        def bfs(root):
+        def dfs(root, depth):
             if not root:
                 return
-            queue = deque([root])
-            res = []
-            while queue:
-                size = len(queue)
-                maxval = float("-inf")
-                for _ in range(size):
-                    node = queue.popleft()
-                    if node.val > maxval:
-                        maxval = node.val
-                    if node.left:
-                        queue.append(node.left)
-                    if node.right:
-                        queue.append(node.right)
-                res.append(maxval)
-            return res
-        return bfs(root)
+            if depth == len(res):
+                res.append(root.val)
+            if root.val > res[depth]:
+                res[depth] = root.val
+            dfs(root.left, depth+1)
+            dfs(root.right, depth+1)
+
+        res = []
+        dfs(root, 0)
+        return res
 
 # @lc code=end
