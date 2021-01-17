@@ -79,7 +79,7 @@ class Solution:
                 x_parent = None
                 y_parent = None
                 for _ in range(size):
-                    node, parent = queue.pop()
+                    node, parent = queue.popleft()
                     if node.val == x:
                         x_parent = parent
                     if node.val == y:
