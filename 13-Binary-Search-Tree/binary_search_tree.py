@@ -41,3 +41,23 @@ class BinarySearchTree(object):
             node.right = self._insert(node.right, key, value)
 
         return node
+
+    def search(self, key: int) -> int:
+        return self._search(self.root, key)
+
+    def _search(self, node: TreeNode, key: int) -> int:
+        if node is None:
+            return None
+
+        if key == node.key:
+            return node.value
+        elif key < node.value:
+            return self._search(node.left, key)
+        else:
+            return self._search(node.right, key)
+
+    def contain(self, key: int) -> bool:
+        return self._contain(self.root, key)
+
+    def _contain(self, node: TreeNode, key: int) -> bool:
+        pass
