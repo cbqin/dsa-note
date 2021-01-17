@@ -60,4 +60,12 @@ class BinarySearchTree(object):
         return self._contain(self.root, key)
 
     def _contain(self, node: TreeNode, key: int) -> bool:
-        pass
+        if node is None:
+            return False
+
+        if key == node.key:
+            return True
+        elif key < node.key:
+            return self._contain(node.left, key)
+        else:
+            return self._contain(node.right, key)
