@@ -126,3 +126,35 @@ class BinarySearchTree(object):
     def removeMin(self, node: TreeNode) -> None:
         if self.root:
             self.root = self.removeMinimum(self.root)
+
+    def floor(self, key: int) -> int:
+        return self._floor(self.root, key)
+
+    def _floor(self, node: TreeNode, key: int) -> int:
+        if node is None:
+            return None
+
+        if key == node.key:
+            return node.key
+        if key < node.key:
+            return self._floor(node.left, key)
+        temp = self._floor(node.right, key)
+        if temp:
+            return temp
+        return node.key
+
+    def ceiling(self, key: int) -> int:
+        return self._ceiling(self.root, key)
+
+    def _ceiling(self, node: TreeNode, key: int) -> int:
+        if node is None:
+            return None
+
+        if key == node.key:
+            return node.key
+        if key > node.key:
+            return self._ceiling(node.right, key)
+        temp = self._ceiling(node.left, key)
+        if temp:
+            return temp
+        return node.key
