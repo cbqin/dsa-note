@@ -147,3 +147,45 @@ class BST(object):
         if self.isEmpty():
             raise NoSuchElementError("Max", "BST is empty.")
         return self._max(self.root).key
+
+    def _floor(self, node: Node, key: int)->Node:
+        if node is None:
+            return None
+        if key == node.key:
+            return node
+        elif key < node.key:
+            return self._floor(node.left, key)
+        temp = self._floor(node.right, key)
+        if temp is not None:
+            return temp
+        return node
+
+    def floor(self, key: int)->int:
+        if self.isEmpty():
+            raise NoSuchElementError("Floor", "BST is empty.")
+        node = self._floor(self.root, key)
+        if node is None:
+            raise NoSuchElementError("Floor", "Key is too small")
+        else:
+            return node.key
+
+    def _ceiling(self, node: Node, key: int)->Node:
+        if node is None:
+            return None
+        if key == node.key:
+            return node
+        elif key > node.key:
+            return self._ceiling(node.right, key)
+        temp = self._ceiling(node.left, key)
+        if temp is not None:
+            return temp
+        return node
+
+    def ceiling(self, key: int)->int:
+        if self.isEmpty():
+            raise NoSuchElementError("Floor", "BST is empty.")
+        node = self._ceiling(self.root, key)
+        if node is None:
+            raise NoSuchElementError("Ceiling", "Key is too large")
+        else:
+            return node.key
