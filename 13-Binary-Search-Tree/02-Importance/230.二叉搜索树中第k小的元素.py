@@ -55,17 +55,31 @@
 
 
 class Solution:
-    def kthSmallest(self, root: TreeNode, k: int) -> int:
-        def dfs(root, res):
-            if not root:
-                return
-            dfs(root.left, res)
-            res.append(root.val)
-            dfs(root.right, res)
+    # def kthSmallest(self, root: TreeNode, k: int) -> int:
+    #     def dfs(root, res):
+    #         if not root:
+    #             return
+    #         dfs(root.left, res)
+    #         res.append(root.val)
+    #         dfs(root.right, res)
 
+    #     res = []
+    #     dfs(root, res)
+    #     return res[k-1]
+
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        stack = []
         res = []
-        dfs(root, res)
-        return res[k-1]
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            res.append(root.val)
+            if len(res) == k:
+                return res[-1]
+            root = root.right
 
 
 # @lc code=end
