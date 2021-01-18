@@ -19,6 +19,19 @@ class NoSuchElementError(Error):
         self.message = message
 
 
+class IllegalArgumentError(Error):
+    """Exception raised for errors in the input.
+
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
+
+
 class Node(object):
     def __init__(self,
                  key: int,
@@ -189,3 +202,32 @@ class BST(object):
             raise NoSuchElementError("Ceiling", "Key is too large")
         else:
             return node.key
+
+    def _select(self, node: Node, rank: int)->int:
+        if node is None:
+            return None
+        left_size = self._size(node.left)
+        if left_size > rank:
+            return self._select(node.left, rank)
+        elif left_size < rank:
+            return self._select(node, rank-left_size-1)
+        else:
+            return node.key
+
+    def select(self, rank: int)->int:
+        if rank < 0 or rank >= self.size():
+            raise IllegalArgumentError("Select", "Illegal argument.")
+        return self._select(self.root, rank)
+
+    def _rank(self, node: Node, key: int)->int:
+        if node is None:
+            return 0
+        if key < node.key:
+            return self._rank(node.left, key)
+        elif key > node.key:
+            return 1+self._size(node.left)+self._rank(node.right, key)
+        else:
+            return self._size(node.left)
+
+    def rank(self, key: int)->int:
+        return self._rank(self.root, key)
