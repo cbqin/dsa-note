@@ -51,17 +51,28 @@
 
 
 class Solution:
+    # def searchBST(self, root: TreeNode, val: int) -> TreeNode:
+    #     def dfs(root, val):
+    #         if root is None:
+    #             return None
+    #         if val < root.val:
+    #             return dfs(root.left, val)
+    #         elif val > root.val:
+    #             return dfs(root.right, val)
+    #         else:
+    #             return root
+    #     return dfs(root, val)
+
     def searchBST(self, root: TreeNode, val: int) -> TreeNode:
-        def dfs(root, val):
-            if root is None:
-                return None
+        if not root:
+            return None
+        while root:
             if val < root.val:
-                return dfs(root.left, val)
+                root = root.left
             elif val > root.val:
-                return dfs(root.right, val)
+                root = root.right
             else:
                 return root
-        return dfs(root, val)
-
+        return root
 
 # @lc code=end
