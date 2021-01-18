@@ -1,6 +1,24 @@
 from typing import Optional
 
 
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+
+class NoSuchElementError(Error):
+    """Exception raised for errors in the input.
+
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
+
+
 class Node(object):
     def __init__(self,
                  key: int,
@@ -61,3 +79,27 @@ class BST(object):
 
     def put(self, key: int, val: int)->None:
         self.root = self._put(self.root, key, val)
+
+    def _deleteMin(self, node: Node)->Node:
+        if node.left is None:
+            return node.right
+        node.left = self._deleteMin(node.left)
+        node.size = 1+self._size(node.left)+self._size(node.right)
+        return node
+
+    def deleteMin(self)->None:
+        if self.isEmpty():
+            raise NoSuchElementError("Delete Min.", "BST is empty.")
+        self.root = self._deleteMin(self.root)
+
+    def _deleteMax(self, node: Node)->Node:
+        if node.right is None:
+            return node.left
+        node.right = self._deleteMax(node.right)
+        node.size = 1+self._size(node.left)+self._size(node.right)
+        return node
+
+    def deleteMax(self)->None:
+        if self.isEmpty():
+            raise NoSuchElementError("Delete Max.", "BST is empty.")
+        self.root.self._deleteMax(self.root)
