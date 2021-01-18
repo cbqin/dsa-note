@@ -129,7 +129,21 @@ class BST(object):
         self.root = self._delete(self.root, key)
 
     def _min(self, node: Node)->None:
-        pass
+        if node.left is None:
+            return node
+        return self._min(node.left)
 
     def min(self)->Node:
-        pass
+        if self.isEmpty():
+            raise NoSuchElementError("Min.", "BST is empty.")
+        return self._min(self.root).key
+
+    def _max(self, node: Node)->None:
+        if node.right is None:
+            return node
+        return self._max(node.right)
+
+    def max(self)->Node:
+        if self.isEmpty():
+            raise NoSuchElementError("Max", "BST is empty.")
+        return self._max(self.root).key
