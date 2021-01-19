@@ -110,7 +110,7 @@ class Solution:
                 return False, 0
 
         self.res = 0
-        dfs(root)
+        dfs(root.left)
         return self.res if self.res != 26 else 25  # fuck 子树？？！！
 
 
