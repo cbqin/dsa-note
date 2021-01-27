@@ -52,40 +52,6 @@ from collections import deque
 
 
 class Solution:
-    # def exist(self, board: List[List[str]], word: str) -> bool:
-    #     rows = len(board)
-    #     cols = len(board[0])
-    #     visited = [[0]*cols for _ in range(rows)]
-    #     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-    #     length = len(word)
-
-    #     def dfs(i, j, begin):
-    #         if begin == length-1:
-    #             return board[i][j] == word[begin]
-
-    #         if board[i][j] == word[begin]:
-    #             visited[i][j] = 1
-    #             for d in directions:
-    #                 newi = i+d[0]
-    #                 newj = j+d[1]
-    #                 if inArea(newi, newj, rows, cols) and not visited[newi][newj]:
-    #                     if dfs(newi, newj, begin+1):
-    #                         return True
-    #             visited[i][j] = 0
-    #         return False
-
-    #     def inArea(i, j, rows, cols):
-    #         if 0 <= i < rows and 0 <= j < cols:
-    #             return True
-    #         else:
-    #             return False
-
-    #     for i in range(0, rows):
-    #         for j in range(0, cols):
-    #             if dfs(i, j, 0):
-    #                 return True
-    #     return False
-
     def exist(self, board: List[List[str]], word: str) -> bool:
         rows = len(board)
         cols = len(board[0])
@@ -93,8 +59,20 @@ class Solution:
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         length = len(word)
 
-        def bfs(i, j):
-            pass
+        def dfs(i, j, begin):
+            if begin == length-1:
+                return board[i][j] == word[begin]
+
+            if board[i][j] == word[begin]:
+                visited[i][j] = 1
+                for d in directions:
+                    newi = i+d[0]
+                    newj = j+d[1]
+                    if inArea(newi, newj, rows, cols) and not visited[newi][newj]:
+                        if dfs(newi, newj, begin+1):
+                            return True
+                visited[i][j] = 0
+            return False
 
         def inArea(i, j, rows, cols):
             if 0 <= i < rows and 0 <= j < cols:
@@ -104,7 +82,7 @@ class Solution:
 
         for i in range(0, rows):
             for j in range(0, cols):
-                if bfs(i, j, 0):
+                if dfs(i, j, 0):
                     return True
         return False
 
