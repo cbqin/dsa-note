@@ -48,8 +48,35 @@
 
 # @lc code=start
 
+from collections import deque
+
 
 class Solution:
+    # def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+    #     if image[sr][sc] == newColor:
+    #         return image
+
+    #     directions = [(0, -1), (0, 1), (1, 0), (-1, 0)]
+    #     rows = len(image)
+    #     cols = len(image[0])
+
+    #     def dfs(i, j, originColor, newColor):
+    #         image[i][j] = newColor
+    #         for direction in directions:
+    #             newi = i+direction[0]
+    #             newj = j+direction[1]
+    #             if inArea(newi, newj, rows, cols) and image[newi][newj] == originColor:
+    #                 dfs(newi, newj, originColor, newColor)
+
+    #     def inArea(i, j, rows, cols):
+    #         if 0 <= i < rows and 0 <= j < cols:
+    #             return True
+    #         else:
+    #             return False
+
+    #     dfs(sr, sc, image[sr][sc], newColor)
+    #     return image
+
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         if image[sr][sc] == newColor:
             return image
@@ -58,13 +85,20 @@ class Solution:
         rows = len(image)
         cols = len(image[0])
 
-        def dfs(i, j, originColor, newColor):
-            image[i][j] = newColor
-            for direction in directions:
-                newi = i+direction[0]
-                newj = j+direction[1]
-                if inArea(newi, newj, rows, cols) and image[newi][newj] == originColor:
-                    dfs(newi, newj, originColor, newColor)
+        def bfs(sr, sc, originColor, newColor):
+            visited = [[0]*cols for _ in range(rows)]
+            q = deque([(sr, sc)])
+            visited[sr][sc] = 1
+
+            while q:
+                i, j = q.popleft()
+                image[i][j] = newColor
+                for direction in directions:
+                    newi = i+direction[0]
+                    newj = j+direction[1]
+                    if inArea(newi, newj, rows, cols) and not visited[newi][newj] and image[newi][newj] == originColor:
+                        q.append((newi, newj))
+                        visited[newi][newj] = 1
 
         def inArea(i, j, rows, cols):
             if 0 <= i < rows and 0 <= j < cols:
@@ -72,7 +106,7 @@ class Solution:
             else:
                 return False
 
-        dfs(sr, sc, image[sr][sc], newColor)
+        bfs(sr, sc, image[sr][sc], newColor)
         return image
 
 # @lc code=end
